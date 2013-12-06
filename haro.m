@@ -2,7 +2,7 @@
 %   Haro bangeliu aproksimacija
 %
 
-function main
+function haro
     clc;close all;clear all;
 
     n=6;  
@@ -28,7 +28,8 @@ function main
     for i=1:m
         smooth1=(smooth(1:2:end)+smooth(2:2:end))/sqrt(2);
         details{i}=(smooth(1:2:end)-smooth(2:2:end))/sqrt(2);
-        fprintf(1,'\n details %d :  ',i);fprintf('%g ', details{i});
+        fprintf(1,'\n details %d :  ',i);
+        fprintf('%g ', details{i});
         smooth=smooth1;
     end
     fprintf(1,'\n smooth  %d :  ',i);
@@ -44,9 +45,15 @@ function main
 
     for i=0:m-1 %detalumo didinimo ciklas
         % apskaiciuojamos funkcijos detales:  
-        h1=zeros(1,nnn); for k=0:2^(n-m+i)-1, h1=h1+details{m-i}(k+1)*Haar_wavelet(SX,n-m+i,k,a,b);  end
+        h1=zeros(1,nnn); 
+        for k=0:2^(n-m+i)-1
+            h1=h1+details{m-i}(k+1)*Haar_wavelet(SX,n-m+i,k,a,b);
+        end
         figure(3),subplot(m,1,i+1), axis equal,hold on,grid on
-        yshift=(ymin+ymax)/2;axis([xmin xmax ymin-yshift ymax-yshift]), plot(SX,h1,'b-','Linewidth',2);title(sprintf('%d lygio detales',i));
+        yshift=(ymin+ymax)/2;
+        axis([xmin xmax ymin-yshift ymax-yshift])
+        plot(SX,h1,'b-','Linewidth',2);
+        title(sprintf('%d lygio detales',i));
         leg={leg{1:end},sprintf('lygmens %d detales',n-m+i)};
         h=h+h1; % detales pridedamos prie ankstesnio suglodinto vaizdo
         figure(2);subplot(m+1,1,i+2),axis equal,axis([xmin xmax ymin ymax]), hold on,grid on, plot(SX,h,'Linewidth',2);title(sprintf('lygyje %d suglodinta funkcija' ,i+1));

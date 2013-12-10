@@ -13,8 +13,11 @@ function haro
     SX=fscanf(fhx,'%g '); SY=fscanf(fhy,'%g '); fclose all; plot(SX,SY); 
     a=min(SX);
     b=max(SX);
+    figure(4);
+    plot(SX, SY, 'or');
     t=a:(b-a)/(nnn-1):b;
     ts=interp1(SX,SY,t);
+    figure(1);
     clear SX SY, SX=t;SY=ts;plot(SX,SY,'r.');   
     title(sprintf('duota funkcija, tasku skaicius 2^%d',n));
     xmin=min(SX);xmax=max(SX);
